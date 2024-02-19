@@ -424,7 +424,7 @@ ventanaEmergente.innerHTML = `
 }
 
 .boton-reservar:hover {
-  background-color: #0056b3;
+  background-color: #008F39;
 }
 
 
