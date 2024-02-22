@@ -449,7 +449,7 @@ ventanaEmergente.innerHTML = `
     </form>
     <button id="cerrarVentana" class="cerrar-ventana" style="width: 50px; padding: 5px; background-color: #dc3545; font-size: 15px; color: white; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">X</button>
     <div id="cargando" style="display: none; text-align: center;">
-        <img src="777r.gif" alt="Cargando..." style="width: 200px; height: auto;">
+        <img src="https://i.ibb.co/WcZLKcF/777R.gif" alt="Cargando..." style="width: 200px; height: auto;">
     </div>
 </div>
 `;
