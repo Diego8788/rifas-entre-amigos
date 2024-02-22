@@ -415,6 +415,12 @@ function abrirVentanaEmergente() {
 ventanaEmergente.innerHTML = `
 
 
+<style>
+#boletosGeneradosContainer ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .fondo-oscuro {
   position: fixed;
   top: 0;
