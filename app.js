@@ -37,8 +37,16 @@ function mostrarNumerosDisponibles() {
          boton.addEventListener('click', () => seleccionarBoleto(numero));
  
          contenedorNumeros.appendChild(boton);
+         boton.style.borderRadius = '10px';  // Puedes ajustar el valor según tus preferencias
+        boton.style.fontFamily = 'Arial, sans-serif';  // Cambia la fuente según tus preferencias
+        boton.style.fontWeight = 'bold';  // Ajusta el grosor de la fuente
+        boton.style.fontSize = '16px';  // Puedes ajustar el tamaño de la fuente según tus preferencias
+        boton.style.textTransform = 'uppercase';  // Cambia el texto a mayúsculas
        }
      });
+     // Establecer el borde verde alrededor de todos los números
+    contenedorNumeros.style.backgroundColor = '#70b578';  // Puedes ajustar el color según tus preferencias
+    contenedorNumeros.style.border = '15px solid #008F39';
    });
  }
  
@@ -65,7 +73,7 @@ function cambiarColorSeleccionado(boton) {
     boton.style.backgroundColor = ''; 
   } else {
     boton.classList.add('seleccionado');
-    boton.style.backgroundColor = '#007BFF';
+    boton.style.backgroundColor = '#008F39';
   }
 }
 
