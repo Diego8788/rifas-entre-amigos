@@ -418,28 +418,44 @@ ventanaEmergente.innerHTML = `
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8); 
-  z-index: 1000;
-
+  z-index: 999; 
 }
+
+.boton-reservar {
+  background-color: green;
+  color: #ffffff;
+  padding: 2vw 5vw; /* Utilizando unidades de viewport para hacerlo responsive */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2vw; /* Tamaño de fuente también en unidades de viewport */
+  text-align: center;
+}
+
+.boton-reservar:hover {
+  background-color: darkgreen; /* Cambié el color en hover para mayor contraste */
+}
+
+
 </STYLE>
-<div class="contenido-ventana">
-    <h2>Máquina de la Suerte</h2>
+<div class="contenido-ventana" style= border: 2px solid #ccc; border-radius: 10px; background-color: #f0f0f0; max-width: 400px; margin: 0 auto;">
+    <h2 style="text-align: center; font-size: 24px; margin-bottom: 20px; color: #333;">Máquina de la Suerte</h2>
     <form id="formMaquinaSuerte">
-        <label for="numBoletos">Cantidad de Boletos:</label>
-        <select id="numBoletos">
+        <label for="numBoletos" style="display: block; margin-bottom: 10px; color: #333;">Cantidad de Boletos:</label>
+        <select id="numBoletos" style="width: 100%; padding: 10px; margin-bottom: 20px;">
             <option value="" selected disabled>Selecciona</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            
-        </select><br>
-        <button id="generarBoletosBtn" type="button" disabled>Generar Boletos</button>
-        <div id="boletosGeneradosContainer" style="max-height: 150px; overflow-y: auto;"></div>
+            <option value="5">5</option>
+        </select>
+        <button id="generarBoletosBtn" type="button" disabled style="width: 100%; font-size: 15px; padding: 10px; background-color: #008F39; color: white; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">Generar Boletos</button>
+        <div id="boletosGeneradosContainer" style="max-height: 150px; width: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;"></div>
     </form>
-    <button id="cerrarVentana" class="cerrar-ventana">Cerrar</button>
-    <div id="cargando" style="display: none;">
-        <img src="https://i.ibb.co/WcZLKcF/777R.gif" alt="777" style="width: 200px; height: auto;">
+    <button id="cerrarVentana" class="cerrar-ventana" style="width: 50px; padding: 5px; background-color: #dc3545; font-size: 15px; color: white; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">X</button>
+    <div id="cargando" style="display: none; text-align: center;">
+        <img src="https://i.ibb.co/WcZLKcF/777R.gif" alt="Cargando..." style="width: 200px; height: auto;">
     </div>
 </div>
 `;
