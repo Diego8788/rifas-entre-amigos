@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
-import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+import {  getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC7_FF9zCatiybPL7BBhtpt-cbKxQdvPHQ",
@@ -37,16 +37,8 @@ function mostrarNumerosDisponibles() {
          boton.addEventListener('click', () => seleccionarBoleto(numero));
  
          contenedorNumeros.appendChild(boton);
-         boton.style.borderRadius = '10px';  // Puedes ajustar el valor según tus preferencias
-        boton.style.fontFamily = 'Arial, sans-serif';  // Cambia la fuente según tus preferencias
-        boton.style.fontWeight = 'bold';  // Ajusta el grosor de la fuente
-        boton.style.fontSize = '16px';  // Puedes ajustar el tamaño de la fuente según tus preferencias
-        boton.style.textTransform = 'uppercase';  // Cambia el texto a mayúsculas
        }
      });
-     // Establecer el borde verde alrededor de todos los números
-    contenedorNumeros.style.backgroundColor = '#70b578';  // Puedes ajustar el color según tus preferencias
-    contenedorNumeros.style.border = '15px solid #008F39';
    });
  }
  
@@ -73,7 +65,7 @@ function cambiarColorSeleccionado(boton) {
     boton.style.backgroundColor = ''; 
   } else {
     boton.classList.add('seleccionado');
-    boton.style.backgroundColor = '#008F39';
+    boton.style.backgroundColor = '#007BFF';
   }
 }
 
@@ -230,10 +222,10 @@ function mostrarVentanaEmergente() {
   ventanaEmergente.className = 'ventana-emergente';
 
   const mensajeBienvenida = document.createElement('p');
-
+  mensajeBienvenida.textContent = 'LLENA TUS DATOS Y DA CLICK EN APARTAR';
 
   const mensajeSeleccion = document.createElement('p');
-  mensajeSeleccion.textContent = `${boletosSeleccionados.length} BOLETO(S) SELECCIONADO(S)`;
+  mensajeSeleccion.textContent = `${boletosSeleccionados.length} BOLETO SELECCIONADO`;
 
   const campoWhatsApp = document.createElement('input');
   campoWhatsApp.placeholder = 'NÚMERO WHATSAPP (10 dígitos)';
@@ -318,14 +310,11 @@ estadosMexico.forEach(estado => {
         10 BOLETOS POR 100$
         
         ~~~~~~~~~~~~~~~~~~~~
-        Enlace para ver las cuentas de pago:
-        https://extirpable-composit.000webhostapp.com/cuentas.html
-        
         El siguiente paso es enviar foto del comprobante de pago por este medio:
         
         Costo Total: ${costoTotal} pesos MX
         Celular: ${numeroWhatsApp}`;  
-        const urlWhatsApp = `https://wa.me/${4411302946}?text=${encodeURIComponent(mensaje)}`;
+        const urlWhatsApp = `https://wa.me/${4411012642}?text=${encodeURIComponent(mensaje)}`;
   
         const temporizador = document.createElement('p');
         temporizador.textContent = 'Redirigiendo';
@@ -394,16 +383,26 @@ mostrarNumerosDisponibles();
 
 
 
+
 document.getElementById('btnMaquinaSuerte').addEventListener('click', function() {
   abrirVentanaEmergente(); 
 });
 
 function abrirVentanaEmergente() {
-  
+  bloquearSeleccionBoletos();
+
   // Crea un contenedor div para la ventana emergente
   var ventanaEmergente = document.createElement('div');
   ventanaEmergente.className = 'ventana-emergente';
 
+   // Agrega una capa semitransparente para cubrir toda la página
+   var fondoOscuro = document.createElement('div');
+   fondoOscuro.className = 'fondo-oscuro';
+   document.body.appendChild(fondoOscuro);
+ // <option value="5">5</option>
+            // <option value="10">10</option>
+            // <option value="15">15</option>
+            // <option value="20">20</option>
   // Contenido HTML de la ventana emergente
 ventanaEmergente.innerHTML = `
 <style>
@@ -411,51 +410,50 @@ ventanaEmergente.innerHTML = `
   list-style-type: none;
   padding-left: 0;
 }
-.boton-reservar {
-  background-color: #007bff;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  align-items: center;
-  text-align: center;
+
+.fondo-oscuro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); 
+  z-index: 1000;
+
 }
-
-.boton-reservar:hover {
-  background-color: #008F39;
-}
-
-
 </STYLE>
-<div class="contenido-ventana" style= border: 2px solid #ccc; border-radius: 10px; background-color: #f0f0f0; max-width: 400px; margin: 0 auto;">
-    <h2 style="text-align: center; font-size: 24px; margin-bottom: 20px; color: #333;">Máquina de la Suerte</h2>
+<div class="contenido-ventana">
+    <h2>Máquina de la Suerte</h2>
     <form id="formMaquinaSuerte">
-        <label for="numBoletos" style="display: block; margin-bottom: 10px; color: #333;">Cantidad de Boletos:</label>
-        <select id="numBoletos" style="width: 100%; padding: 10px; margin-bottom: 20px;">
+        <label for="numBoletos">Cantidad de Boletos:</label>
+        <select id="numBoletos">
             <option value="" selected disabled>Selecciona</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-        </select>
-        <button id="generarBoletosBtn" type="button" disabled style="width: 100%; font-size: 15px; padding: 10px; background-color: #008F39; color: white; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">Generar Boletos</button>
-        <div id="boletosGeneradosContainer" style="max-height: 150px; width: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;"></div>
+            
+        </select><br>
+        <button id="generarBoletosBtn" type="button" disabled>Generar Boletos</button>
+        <div id="boletosGeneradosContainer" style="max-height: 150px; overflow-y: auto;"></div>
     </form>
-    <button id="cerrarVentana" class="cerrar-ventana" style="width: 50px; padding: 5px; background-color: #dc3545; font-size: 15px; color: white; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">X</button>
-    <div id="cargando" style="display: none; text-align: center;">
-        <img src="https://i.ibb.co/WcZLKcF/777R.gif" alt="Gif777" style="width: 200px; height: auto;">
+    <button id="cerrarVentana" class="cerrar-ventana">Cerrar</button>
+    <div id="cargando" style="display: none;">
+        <img src="https://i.ibb.co/WcZLKcF/777R.gif" alt="777" style="width: 200px; height: auto;">
     </div>
 </div>
 `;
 
 
-  document.body.appendChild(ventanaEmergente);
+document.body.appendChild(ventanaEmergente);
+
+// Evento para cerrar la ventana emergente
+document.getElementById('cerrarVentana').addEventListener('click', function() {
+  // Eliminar la capa semitransparente al cerrar la ventana
+  document.body.removeChild(fondoOscuro);
+  // Eliminar la ventana emergente
+  document.body.removeChild(ventanaEmergente);
+});
 
   document.getElementById('numBoletos').addEventListener('change', function() {
       var seleccion = document.getElementById('numBoletos').value;
@@ -482,7 +480,7 @@ document.getElementById('generarBoletosBtn').addEventListener('click', function(
       contenedorResultado.innerHTML = '';
       generarBoletosDesdeFirebase(numBoletos, contenedorResultado);
       ocultarCargando(); // Oculta el GIF de carga
-  }, 7000); // Simula un tiempo de espera 
+  }, 1000); // Simula un tiempo de espera 
 
   });
 
@@ -543,11 +541,8 @@ if (boletosDisponibles.length >= numBoletos) {
 
   // Crear el botón de reserva
   const botonReservar = document.createElement('button');
-  botonReservar.className= 'boton-reservar';
-
+  botonReservar.id = 'botonReservard';
   botonReservar.textContent = 'Reservar';
-
-
   botonReservar.addEventListener('click', function(event) {
       event.preventDefault(); // Prevenir que la página se recargue al hacer clic en el botón
       
@@ -575,11 +570,6 @@ if (boletosDisponibles.length >= numBoletos) {
 
   // Insertar el contenedor de cantidad de boletos generados en el contenedor deseado
   contenedorCantidadBoletos.appendChild(contenedorCantidadBoletosTexto);
-
- 
-
-
-
 } else {
   contenedorResultado.innerHTML = "<p>No hay suficientes boletos disponibles</p>";
 }
@@ -628,11 +618,17 @@ function shuffleArray(array) {
 }
 // Función para obtener los boletos generados
 // Función para obtener los boletos generados
+// function obtenerBoletosGenerados() {
+//   const boletos = boletosGeneradosArray; // Utilizamos el array boletosGeneradosArray creado anteriormente
+//   return boletos;
+// }
+
 function obtenerBoletosGenerados() {
-  const boletos = boletosGeneradosArray; // Utilizamos el array boletosGeneradosArray creado anteriormente
-  return boletos;
+  // Asumiendo que boletosGeneradosArray ya contiene todos los boletos generados
+  return boletosGeneradosArray;
 }
 
+// Función para obtener las oportunidaes generadas
 
 function obtenerOportunidadesAsociadas() {
   const oportunidades = [];
@@ -650,28 +646,27 @@ function obtenerOportunidadesAsociadas() {
 // Función para mostrar la ventana emergente con el formulario de reserva
 // Función para mostrar la ventana emergente con el formulario de reserva
 function mostrarFormularioReserva(cantidadBoletosSeleccionados) {
-  // Crear elementos del formulario
-  cerrarVentanaEmergente();
-
-  bloquearSeleccionBoletos();
-
-  
-  const fondoObscuro = document.createElement('div');
-  fondoObscuro.className = 'fondo-obscuro';
-
-  fondoObscuro.addEventListener('click', (event) => {
-    if (event.target === fondoObscuro) {
-      cerrarVentanaEmergente(ventanaEmergente, fondoObscuro);
-    }
-  });
+  const fondoOscuro = document.createElement('div');
+    fondoOscuro.className = 'fondo-oscuro';
+    document.body.appendChild(fondoOscuro);
   const formularioReserva = document.createElement('form');
   formularioReserva.id = 'formularioReserva';
 
   // Campo para indicar que llene sus datos y haga clic en apartar
   const mensajeInicio = document.createElement('p');
-  mensajeInicio.textContent = 'LLENA TUS DATOS Y DA CLIC EN APARTAR';
+  mensajeInicio.textContent = 'APARTA TUS BOLETOS';
   formularioReserva.appendChild(mensajeInicio);
 
+    // Crear el botón para cerrar la ventana emergente
+    const botonCerrar = document.createElement('button');
+    botonCerrar.className = 'boton-cerrar';
+    botonCerrar.textContent = 'Cerrar';
+    botonCerrar.addEventListener('click', function() {
+        // Eliminar la ventana emergente y el fondo oscuro al hacer clic en el botón de cerrar
+        document.body.removeChild(ventanaEmergente);
+        document.body.removeChild(fondoOscuro);
+    });
+    formularioReserva.appendChild(botonCerrar);
 // Mostrar la cantidad de boletos generados en el formulario
 const mensajeBoletosGenerados = document.createElement('p');
 mensajeBoletosGenerados.textContent = `${cantidadBoletosSeleccionados} BOLETO(S) GENERADO(S)`;
@@ -720,9 +715,10 @@ formularioReserva.appendChild(mensajeBoletosGenerados);
   formularioReserva.appendChild(mensajeFinal);
 
   const botonEnviar = document.createElement('button');
-  botonEnviar.className='centrado';
   botonEnviar.textContent = 'Apartar';
   formularioReserva.appendChild(botonEnviar);
+
+  
 
   // Agregar evento de submit al formulario
   formularioReserva.addEventListener('submit', function(event) {
@@ -747,6 +743,7 @@ formularioReserva.appendChild(mensajeBoletosGenerados);
     }
   });
 
+
   // Mostrar la ventana emergente con el formulario
   const ventanaEmergente = document.createElement('div');
   ventanaEmergente.className = 'ventana-emergente';
@@ -757,35 +754,44 @@ formularioReserva.appendChild(mensajeBoletosGenerados);
 async function enviarBoletosYOportunidadesPorWhatsApp(boletos, oportunidades, nombre, apellido, whatsapp, estado) {
   try {
     // Número de WhatsApp al que deseas enviar el mensaje (debes incluir el código de país)
-    const numeroWhatsApp = '4411012642';
+    const numeroWhatsApp = ''; // Asegúrate de reemplazar esto con tu número de WhatsApp real, incluyendo el código de país.
 
-    await Promise.all(boletos.map(async (boletoNumero, index) => {
-      const mensaje = `¡Aquí están tus boletos y oportunidades!\n\n` +
-                     `Boleto: ${boletoNumero}\n` +
-                     `Oportunidades: ${oportunidades.join(', ')}\n\n` +
-                     `Nombre: ${nombre}\n` +
-                     `Apellido: ${apellido}\n` +
-                     `WhatsApp: ${whatsapp}\n` +
-                     `Estado: ${estado}`;
+    // Inicializamos el mensaje completo que vamos a enviar
+    let mensajeCompleto = `¡Aquí están tus boletos y oportunidades!\n\n`;
 
-      const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+    // Prepara las promesas para las actualizaciones de la base de datos
+    let promesasDeActualizacion = [];
 
-      await Promise.all([
-        set(ref(database, `boletos/${boletoNumero}/estado`), 'reservado'),
-        set(ref(database, `boletos/${boletoNumero}/informacionAdicional`), {
-          nombre: nombre,
-          apellido: apellido,
-          whatsapp: whatsapp,
-          estado: estado
-        }),
-        set(ref(database, `boletos/${boletoNumero}/oportunidades`), oportunidades.slice(index * 5, (index + 1) * 5))
-      ]);
+    // Iteramos sobre cada boleto para agregar su información al mensaje completo y preparar las actualizaciones de la base de datos
+    boletos.forEach((boletoNumero, index) => {
+        const ops = oportunidades.slice(index * 5, (index + 1) * 5).join(', ');
+        mensajeCompleto += `Boleto: ${boletoNumero}\nOportunidades: ${ops}\n\n`;
 
-      // Esperar 2 segundos antes de redirigir a WhatsApp
-      setTimeout(() => {
-        window.location.href = urlWhatsApp;
-      }, 2000);
-    }));
+        // Añade aquí las operaciones de actualización de la base de datos para cada boleto
+        promesasDeActualizacion.push(
+            set(ref(database, `boletos/${boletoNumero}/estado`), 'reservado'),
+            set(ref(database, `boletos/${boletoNumero}/informacionAdicional`), {
+                nombre: nombre,
+                apellido: apellido,
+                whatsapp: whatsapp,
+                estado: estado
+            }),
+            set(ref(database, `boletos/${boletoNumero}/oportunidades`), oportunidades.slice(index * 5, (index + 1) * 5))
+        );
+    });
+
+    // Espera a que todas las operaciones de la base de datos se completen
+    await Promise.all(promesasDeActualizacion);
+
+    // Agregamos la información del usuario al final del mensaje
+    mensajeCompleto += `Nombre: ${nombre}\nApellido: ${apellido}\nWhatsApp: ${whatsapp}\nEstado: ${estado}`;
+    document.body.innerHTML += "<p>Redirigiendo</p>";
+    // Preparamos la URL para enviar el mensaje a través de WhatsApp
+    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajeCompleto)}`;
+    setTimeout(() => {
+      window.location.href = urlWhatsApp;
+    }, 2000); // Esperar 2 segundos antes de redirigir a WhatsApp
+
   } catch (error) {
     console.error('Error al enviar boletos y oportunidades por WhatsApp:', error);
     alert('Ocurrió un error al enviar los boletos y oportunidades por WhatsApp. Por favor, intenta nuevamente.');
